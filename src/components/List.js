@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import {makeStyles} from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -24,6 +25,8 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+const DetailLink = React.forwardRef((props, ref) => <Link innerRef={ref} {...props} />)
+
 function List(props) {
     const classes = useStyles();
 
@@ -40,7 +43,8 @@ function List(props) {
                             title={data.restaurant.name}
                             subtitle={<span>location: {data.restaurant.location.address}</span>}
                             actionIcon={
-                                <IconButton aria-label={`info about ${data.restaurant.name}`} className={classes.icon}>
+                                <IconButton aria-label={`info about ${data.restaurant.name}`} className={classes.icon}
+                                            component={DetailLink} to={`/detail/${data.restaurant.id}`}>
                                     <InfoIcon/>
                                 </IconButton>
                             }
